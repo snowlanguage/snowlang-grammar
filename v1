@@ -1,0 +1,71 @@
+(* THIS IS VERSION 1 OF SNOWLANGS GRAMMAR *)
+(* This was mad 3 of January 2023 *)
+(* And last updated 3 of January 2023 *)
+
+(* Valid implomentations of v1: *)
+(* Currently no valid implomentations *)
+
+(* PROGRAM *)
+program			= declaration* EOF;
+
+(* DECLARATIONS *)
+declaration		= classDecl
+				| functionDecl
+				| varDecl
+				| statement;
+
+classDecl		= "class" IDENTIFIER ("extends" IDENTIFIER)? NEW_LINE? "{" function* "}";
+functionDecl	= "function" function;
+varDecl			= ("var" | "const") IDENTIFIER "=" expression NEW_LINE;
+
+(* STATEMENTS *)
+statement		= exprStmt
+				| forStmt
+				| ifStmt
+				| returnStmt
+				| whileStmt
+				| block;
+
+exprStmt		= expression NEW_LINE;
+forStmt			= "for" "(" (varDecl | exprStmt | ";") expression? ";" expression? ")" statement;
+ifStmt			= "if" expression statement ("elif" statement)* ("else" statement)?;
+returnStmt		= expression? NEW_LINE;
+whileStmt		= "while" expression statement;
+block			= "{" declaration* "}";
+
+(* EXPRESSIONS *)
+expression		= assignment;
+
+assignment		= (call ".")? IDENTIFIER "=" assignment
+				| logicOr;
+
+logicOr			= logicAnd ("or" logicAnd)*;
+logicAnd		= equality ("and" equality)*;
+equality		= comparison (("==" | "!=") comparison)*;
+comparison		= term ((">" | ">=" | "<" | "<=") term)*;
+term			= factor (("-" | "+") factor)*;
+factor			= unary (("*" | "/") unary)*;
+
+unary			= ("!" | "-") unary | call;
+call			= primary ("(" arguments? ")" | "." IDENTIFIER);
+primary			= "true"
+				| "false"
+				| "null"
+				| "self"
+				| NUMBER
+				| STRING
+				| IDENTIFIER
+				| "(" expression ")"
+				| "super" "." IDENTIFIER;
+
+(* UTILITY *)
+function		= IDENTIFIER "(" parameters? ")" block;
+parameters		= IDENTIFIER ("," IDENTIFIER)*;
+arguments		= expression ("," expression)*;
+
+(* LEXICAL GRAMMAR *)
+NUMBER 			= DIDGIT+ ("." DIDGIT+)?;
+STRING			= "\"" <any char except "\"">* "\"";
+IDENTIFIER		= ALPHA (ALPHA | DIDGIT)*;
+ALPHA			= "a"..."z" | "A"..."Z" | "_";
+DIDGIT			= "0"..."9";
