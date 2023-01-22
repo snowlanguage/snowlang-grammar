@@ -27,7 +27,7 @@ statement		= exprStmt
 				| block;
 
 exprStmt		= expression NEW_LINE;
-forStmt			= "for" "(" (varDecl | exprStmt | ";") expression? ";" expression? ")" statement;
+forStmt			= "for" "(" (varDecl | expression | ";") expression? ";" expression? ")" statement;
 ifStmt			= "if" expression statement ("elif" statement)* ("else" statement)?;
 returnStmt		= expression? NEW_LINE;
 whileStmt		= "while" expression statement;
