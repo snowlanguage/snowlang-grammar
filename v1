@@ -1,6 +1,6 @@
 (* THIS IS VERSION 1 OF SNOWLANGS GRAMMAR *)
 (* This was mad 3 of January 2023 *)
-(* And last updated 24 of January 2023 *)
+(* And last updated 25 of January 2023 *)
 
 (* Valid implomentations of v1: *)
 (* Currently no valid implomentations *)
@@ -29,7 +29,7 @@ statement		= exprStmt
 exprStmt		= expression NEW_LINE;
 forStmt			= "for" "(" (varDecl | expression | ";") expression? ";" expression? ")" statement;
 ifStmt			= "if" expression statement ("elif" statement)* ("else" statement)?;
-returnStmt		= expression? NEW_LINE;
+returnStmt		= "return" expression? NEW_LINE;
 whileStmt		= "while" expression statement;
 block			= "{" declaration* "}";
 
