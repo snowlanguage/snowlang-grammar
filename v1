@@ -36,7 +36,7 @@ block			= "{" declaration* "}";
 (* EXPRESSIONS *)
 expression		= assignment;
 
-assignment		= (call ".") IDENTIFIER "=" assignment
+assignment		= (call ".")? IDENTIFIER "=" assignment
 				| logicOr;
 
 logicOr			= logicAnd ("or" logicAnd)*;
