@@ -63,7 +63,7 @@ primary			= "true"
 				| "super" "." IDENTIFIER;
 
 (* UTILITY *)
-function		= IDENTIFIER "(" parameters? ")" block;
+function		= "function" IDENTIFIER "(" parameters? ")" block;
 parameters		= IDENTIFIER ("," IDENTIFIER)*;
 arguments		= expression ("," expression)*;
 
